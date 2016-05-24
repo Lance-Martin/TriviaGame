@@ -3,3 +3,6 @@ body {
   background-size: cover;
 
 }
+ .header h1{
+   text-align: center;
+ }
