@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: url('../images/ovalOffice.jpeg');
   background-size: cover;
@@ -6,3 +10,31 @@ body {
  .header h1{
    text-align: center;
  }
+
+ #right {
+   background-color: #EEE9E9;
+   border: 2px solid #8B8989;
+   height: 100px;
+   padding-top: 35px;
+   text-align: center;
+   margin-top: 10px;
+   margin-right: 10px;
+ }
+
+.wrong {
+  background-color: #EEE9E9;
+  border: 2px solid #8B8989;
+  height: 100px;
+  padding-top: 35px;
+  text-align: center;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+#wrong:hover {
+  background-color: #3498db;
+}
+
+#right:hover {
+  background-color: #3498db;
+}
