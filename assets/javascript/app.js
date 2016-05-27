@@ -101,93 +101,74 @@ function rightImage(){
   function nextQ() {
     clearInterval(myinterval);
     $('#time').empty();
+    if (qcount < 9) {
     insertQ();
     countDown();
     clicks();
+    }
+    else {
+      $('#answers').empty();
+      if (guessRight >= 7) {
+        $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
+        $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
+        $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
+        $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
+        $('#answers').append('<div class = "row results" id = "reset">Retake the quiz</div>');
+        $('#reset').on("click",function(){
+          qcount= 0;
+          guessRight=0;
+          guessWrong=0;
+          unanswered=0;
+          insertQ();
+          clicks();
+        });
+
+        console.log("activated");
+      }
+      else {
+        $('#question').html("You may want to brush up on the candidate's stances");
+        $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
+        $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
+        $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
+        $('#answers').append('<div class = "row results" id = "reset">Retake the quiz</div>');
+        $('#reset').on("click",function(){
+          qcount= 0;
+          guessRight=0;
+          guessWrong=0;
+          unanswered=0;
+          insertQ();
+          clicks();
+        });
+
+      }
+    }
   }
 
   function clicks(){
     $('.wrong').on("click", function(){
+      $('#time').empty();
       console.log("clicked");
       rightImage();
       qcount++;
       guessWrong++;
       clearInterval(myinterval);
-      if(qcount < 9) {
-        setTimeout(nextQ, 5*1000);
-      }
-      else {
-        $('#answers').empty();
-        if (guessRight >= 5) {
-          $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
-          $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
-          $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
-          $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
-
-          console.log("activated");
-        }
-        else {
-          $('#question').html("You may want to brush up on the candidate's platforms");
-          $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
-          $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
-          $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
-        }
-      }
+      setTimeout(nextQ, 5*1000);
     });
     $('#right').on("click",function(){
+      $('#time').empty();
       rightImage();
       qcount++;
       guessRight++;
       clearInterval(myinterval);
-      if(qcount < 9) {
-        setTimeout(nextQ, 5*1000);
-      }
-      else {
-        $('#answers').empty();
-        if (guessRight >= 5) {
-          $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
-          console.log("activated");
-          $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
-          $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
-          $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
-        }
-        else {
-          $('#question').html("You may want to brush up on the candidate's platforms before voting in the election");
-          $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
-          $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
-          $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
-        }
-      }
+      setTimeout(nextQ, 5*1000);
       console.log(qcount);
       console.log(guessRight);
-      // $('#time').empty();
-      // insertQ();
-      // countDown();
-      // clicks();
-      // if (qcount === 7) {
-      //   console.log("if activated");
-      //   if (guessRight >= 5) {
-      //     $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
-      //     console.log("activated");
-      //   }
-      //   else {
-      //     $('#question').html("You may want to brush up on the candidate's platforms before voting in the election");
-      //   }
-      // }
+
     });
   }
   clicks();
 
   //conditionals
   //================================================================================================================================================================
-  if (qcount === 7) {
-    console.log("if activated");
-    if (guessRight >= 7) {
-      $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
-      console.log("activated");
-    }
-    else {
-      $('#question').html("You may want to brush up on the candidate's platforms before voting in the election");
-    }
-  }
+
 });
