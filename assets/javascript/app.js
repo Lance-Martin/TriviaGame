@@ -55,8 +55,8 @@ $(document).ready(function(){
     }
   ];
 
-  var qcount= 0;
-  var guessRight = 0;
+  var qcount= 0; //sets the first question to the 0 index of the questions array
+  var guessRight = 0; //starts the player at 0 guesses right,wrong, and unanswered/
   var guessWrong = 0;
   var unanswered = 0;
   var myinterval;
@@ -72,13 +72,19 @@ $(document).ready(function(){
   console.log(insertQ());
 
   function countDown() {
-    var i = 10;
+    var i = 15;
     myinterval = setInterval(function() {
     $("#time").html("<p>seconds left: " + i + "</p>");
 
     if (i === 0) {
         clearInterval();
-        //call your function
+        unanswered++;
+        i=5;
+        rightImage();
+        $('#time').empty();
+        qcount++;
+        setTimeout(nextQ, 5*1000);
+
     }
     else {
         i--;
@@ -89,6 +95,7 @@ $(document).ready(function(){
   countDown();
 
 function rightImage(){
+  $('#question').append("<p>The correct answer was:</p>");
   $('#answers').html(questions[qcount].right);
 }
   function nextQ() {
@@ -106,19 +113,50 @@ function rightImage(){
       qcount++;
       guessWrong++;
       clearInterval(myinterval);
-      setTimeout(nextQ, 5*1000);
-      // $('#time').empty();
-      // insertQ();
-      // countDown();
-      // clicks();
+      if(qcount < 9) {
+        setTimeout(nextQ, 5*1000);
+      }
+      else {
+        $('#answers').empty();
+        if (guessRight >= 5) {
+          $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
+          $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
+          $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
+          $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
+
+          console.log("activated");
+        }
+        else {
+          $('#question').html("You may want to brush up on the candidate's platforms");
+          $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
+          $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
+          $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
+        }
+      }
     });
     $('#right').on("click",function(){
       rightImage();
       qcount++;
       guessRight++;
       clearInterval(myinterval);
-      if(qcount < 10) {
-      setTimeout(nextQ, 5*1000);
+      if(qcount < 9) {
+        setTimeout(nextQ, 5*1000);
+      }
+      else {
+        $('#answers').empty();
+        if (guessRight >= 5) {
+          $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
+          console.log("activated");
+          $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
+          $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
+          $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
+        }
+        else {
+          $('#question').html("You may want to brush up on the candidate's platforms before voting in the election");
+          $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
+          $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
+          $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
+        }
       }
       console.log(qcount);
       console.log(guessRight);
@@ -126,16 +164,16 @@ function rightImage(){
       // insertQ();
       // countDown();
       // clicks();
-      if (qcount === 7) {
-        console.log("if activated");
-        if (guessRight >= 5) {
-          $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
-          console.log("activated");
-        }
-        else {
-          $('#question').html("You may want to brush up on the candidate's platforms before voting in the election");
-        }
-      }
+      // if (qcount === 7) {
+      //   console.log("if activated");
+      //   if (guessRight >= 5) {
+      //     $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
+      //     console.log("activated");
+      //   }
+      //   else {
+      //     $('#question').html("You may want to brush up on the candidate's platforms before voting in the election");
+      //   }
+      // }
     });
   }
   clicks();
