@@ -51,7 +51,9 @@ $(document).ready(function(){
       right: "<img src = 'assets/images/false.jpg'>",
     },
     question10 = {
-      question: ""
+      question: "Which candidate is against sending ground troops to fight against ISIS?",
+      answers: ["<div class = 'row' id = 'right'><p>Bernie Sanders</p></div>","<div class = 'row wrong'><p>Hillary Clinton</p></div>","<div class = 'row wrong'><p>Donald Trump</p></div>"],
+      right: "<img src = 'assets/images/bernie.jpg'>"
     }
   ];
 
@@ -112,7 +114,7 @@ $(document).ready(function(){
   function nextQ() {
     clearInterval(myinterval);
     $('#time').empty();
-    if (qcount < 9) {
+    if (qcount < 10) {
     insertQ();
     countDown();
     clicks();
@@ -120,12 +122,12 @@ $(document).ready(function(){
     else {
       $('#answers').empty();
       if (guessRight >= 7) {
-        $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
+        $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy.");
         endOfGame();
 
       }
       else {
-        $('#question').html("You may want to brush up on the candidate's stances");
+        $('#question').html("You may want to brush up on the candidate's stances.");
         endOfGame();
       }
     }
@@ -162,7 +164,5 @@ $(document).ready(function(){
       clicks();
     }
     start();
-  //conditionals
-  //================================================================================================================================================================
 
 });
