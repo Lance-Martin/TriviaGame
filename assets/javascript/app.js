@@ -15,7 +15,7 @@ $(document).ready(function(){
       right: "<img src = 'assets/images/seriousTrump.jpg'>"
     },
     question3 = {
-      question: "which candidate wishes to ease unnecessary regulatory burdens on community banks, which provide credit to small business owners and families looking to invest in their futures?",
+      question: "which candidate wishes to ease unnecessary regulatory burdens on community banks, which provide credit to small business owners and families?",
       answers: ["<div class = 'row wrong'><p>Donald Trump</p></div>","<div id = 'right' class = 'row'><p>Hillary Clinton</p></div>","<div class = 'row wrong'><p>Bernie Sanders</p></div>"],
       right: "<img src = 'assets/images/hillary.jpg'>"
     },
@@ -48,7 +48,7 @@ $(document).ready(function(){
     question9 = {
       question: "Does Donald Trump want to increase the United State's military budget?",
       answers: ["<div id = 'right' class = 'row'><p>False</p></div>","<div class = 'row wrong'><p>True</p></div>"],
-      right: "<img src = 'assets/images/seriousTrump.jpg'>",
+      right: "<img src = 'assets/images/false.jpg'>",
     },
     question10 = {
       question: ""
@@ -68,8 +68,6 @@ $(document).ready(function(){
     $("#question").html(questions[qcount].question);
     $("#answers").html(questions[qcount].answers);
   }
-  insertQ();
-  console.log(insertQ());
 
   function countDown() {
     var i = 15;
@@ -77,27 +75,40 @@ $(document).ready(function(){
     $("#time").html("<p>seconds left: " + i + "</p>");
 
     if (i === 0) {
-        clearInterval();
+        clearInterval(myinterval);
         unanswered++;
-        i=5;
         rightImage();
         $('#time').empty();
         qcount++;
         setTimeout(nextQ, 5*1000);
-
     }
     else {
         i--;
        }
     }, 1000);
-}
+  }
 
-  countDown();
 
-function rightImage(){
-  $('#question').append("<p>The correct answer was:</p>");
-  $('#answers').html(questions[qcount].right);
-}
+  function rightImage(){
+    $('#question').append("<p>The correct answer was:</p>");
+    $('#answers').html(questions[qcount].right);
+  }
+
+  function endOfGame(){
+    $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
+    $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
+    $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
+    $('#answers').append('<div class = "row results" id = "reset">Retake the quiz</div>');
+    $('#reset').on("click",function(){
+      qcount= 0;
+      guessRight=0;
+      guessWrong=0;
+      unanswered=0;
+      $('#question').empty();
+      start();
+    });
+  }
+
   function nextQ() {
     clearInterval(myinterval);
     $('#time').empty();
@@ -110,36 +121,12 @@ function rightImage(){
       $('#answers').empty();
       if (guessRight >= 7) {
         $('#question').html("Great job. You proved you know your candidates. Take pride that you are a valuable member of democracy");
-        $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
-        $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
-        $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
-        $('#answers').append('<div class = "row results" id = "reset">Retake the quiz</div>');
-        $('#reset').on("click",function(){
-          qcount= 0;
-          guessRight=0;
-          guessWrong=0;
-          unanswered=0;
-          insertQ();
-          clicks();
-        });
+        endOfGame();
 
-        console.log("activated");
       }
       else {
         $('#question').html("You may want to brush up on the candidate's stances");
-        $('#answers').append('<div class= "row results">Questions guessed right: '+guessRight+'<div>');
-        $('#answers').append('<div class= "row results">Questions guessed wrong: '+guessWrong+'<div>');
-        $('#answers').append('<div class= "row results">Questions not guessed in time: '+unanswered+'<div>');
-        $('#answers').append('<div class = "row results" id = "reset">Retake the quiz</div>');
-        $('#reset').on("click",function(){
-          qcount= 0;
-          guessRight=0;
-          guessWrong=0;
-          unanswered=0;
-          insertQ();
-          clicks();
-        });
-
+        endOfGame();
       }
     }
   }
@@ -165,9 +152,16 @@ function rightImage(){
       console.log(guessRight);
 
     });
+    $('#start').on("click",function(){
+      nextQ();
+    });
   }
-  clicks();
 
+    function start() {
+      $('#answers').html('<div class= "row results" id = "start">Start Game</div>');
+      clicks();
+    }
+    start();
   //conditionals
   //================================================================================================================================================================
 

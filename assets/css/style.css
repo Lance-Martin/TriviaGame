@@ -11,6 +11,7 @@ body {
 #container {
   background-color: rgba(255, 255, 255, 0.25);
   min-height: 700px;
+  padding-top: 30px;
 }
 
  .header h1{
@@ -23,35 +24,28 @@ body {
  #time {
    font-size: 30px;
    color: black;
-   height: 80px;
    text-align: center;
  }
 
  #question {
    text-align: center;
    font-size: 36px;
-   color:
- }
-
- #right {
+   padding-top: 0px;
+   margin-top: 0px;
+   color: black;
    background-color: #EEE9E9;
    border: 2px solid #8B8989;
-   height: 100px;
-   padding-top: 35px;
-   text-align: center;
-   margin-top: 10px;
-   margin-right: 10px;
  }
 
-.wrong {
-  background-color: #EEE9E9;
-  border: 2px solid #8B8989;
-  height: 100px;
-  padding-top: 35px;
-  text-align: center;
-  margin-top: 10px;
-  margin-right: 10px;
-}
+ #right, .wrong, .results {
+   background-color: #EEE9E9;
+   border: 2px solid #8B8989;
+   height: 90px;
+   padding-top: 25px;
+   text-align: center;
+   font-size: 22px;
+   margin-top: 10px;
+ }
 
 .wrong:hover {
   background-color: #3498db;
@@ -63,16 +57,6 @@ body {
 
 #reset:hover {
   background-color: #3498db;
-}
-
-.results {
-  background-color: #EEE9E9;
-  border: 2px solid #8B8989;
-  height: 100px;
-  padding-top: 35px;
-  text-align: center;
-  margin-top: 10px;
-  margin-right: 10px;
 }
 
 img {
